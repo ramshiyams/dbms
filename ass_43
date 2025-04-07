@@ -1,0 +1,41 @@
+-- 
+-- Roll No:43
+-- Name: ramshiya m.s
+-- Program: <program name>
+-- 
+
+
+--
+-- Table structure for table books
+
+create table books(accno int auto_increment primary key, title varchar(100) unique not null, author varchar(50) not null, price float(6,2), type enum('lending','reference'), availability enum('yes','no'), publisherid int);
+
+-- Table structure for table publishers
+
+create table publishers(publisherid int auto_increment primary key, name varchar(50)unique not null , address varchar(100));
+
+-- Table structure for table issues//error inde
+
+create table issues(issueid int auto_increment, memberid int foriegn key, accno foreign key, issuedate date, duedate date);
+
+-- Table structure for table members
+
+create table members(memberid int auto_increment primary key, name varchar(50) not null, address varchar(100), type enum('staff','student'));
+
+
+-- ---------create/alter statement commands----------- # This line may be removed in the actual file
+
+
+--
+-- Dumping data for table <table_name>
+--
+
+-- --------insert/update statement commands----------- # This line may be removed in the actcual file
+
+--
+-- SQl Query Statements
+--
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
+
