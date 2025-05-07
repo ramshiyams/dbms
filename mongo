@@ -1,0 +1,153 @@
+24mca43_db> db.createCollection("mybrd")
+{ ok: 1 }
+24mca43_db> db.createCollection("student")
+{ ok: 1 }
+24mca43_db> db.student.insertOne({rollno:1,name:"anil",age:20})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b23e5d7ef6a51cfd861e0')
+}
+24mca43_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b23e5d7ef6a51cfd861e0'),
+    rollno: 1,
+    name: 'anil',
+    age: 20
+  }
+]
+24mca43_db> db.student.insertOne({rollno:2,name:"anju"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b25d7d7ef6a51cfd861e1')
+}
+24mca43_db> db.student.find({rollno:2})
+[
+  {
+    _id: ObjectId('681b25d7d7ef6a51cfd861e1'),
+    rollno: 2,
+    name: 'anju'
+  }
+]
+24mca43_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b23e5d7ef6a51cfd861e0'),
+    rollno: 1,
+    name: 'anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b25d7d7ef6a51cfd861e1'),
+    rollno: 2,
+    name: 'anju'
+  }
+]
+24mca43_db> db.student.find({rollno:2,age:22})
+
+24mca43_db> 
+
+24mca43_db> db.student.find({rollno:1,age:22})
+
+24mca43_db> db.student.find({rollno:1,age:20})
+[
+  {
+    _id: ObjectId('681b23e5d7ef6a51cfd861e0'),
+    rollno: 1,
+    name: 'anil',
+    age: 20
+  }
+]
+24mca43_db> db.student.find({$and:[{rollno:1,age:20}]})
+[
+  {
+    _id: ObjectId('681b23e5d7ef6a51cfd861e0'),
+    rollno: 1,
+    name: 'anil',
+    age: 20
+  }
+]
+24mca43_db> db.student.find({$or:[{rollno:1,age:22}]})
+
+24mca43_db> db.student.find({$or:[{rollno:1 $or age:22}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:32)
+
+> 1 | db.student.find({$or:[{rollno:1 $or age:22}]})
+    |                                 ^
+  2 |
+
+24mca43_db> db.student.find({$or:[{rollno:1 or age:22}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:32)
+
+> 1 | db.student.find({$or:[{rollno:1 or age:22}]})
+    |                                 ^
+  2 |
+
+24mca43_db> db.student.find({$or:[{rollno:1,age:22}]})
+
+24mca43_db> db.student.find({$or:[{rollno:1,age:20}]})
+[
+  {
+    _id: ObjectId('681b23e5d7ef6a51cfd861e0'),
+    rollno: 1,
+    name: 'anil',
+    age: 20
+  }
+]
+24mca43_db> db.student.find({$or:[{rollno:1,age:20,_id:0}]})
+
+24mca43_db> 
+
+24mca43_db> db.student.insertOne({rollno:3,name:"ramshiya",age:33,phone:["8789687","8766688"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2ad1d7ef6a51cfd861e2')
+}
+24mca43_db> db.student.insertOne({rollno:3,name:"ramshiya",age:33,address:{city:"malappuram",pincode:"680542"}})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2b5dd7ef6a51cfd861e3')
+}
+24mca43_db> db.student.updateOne({phone:{$exists:true}},{$rename:{phone:phoneno}})
+ReferenceError: phoneno is not defined
+24mca43_db> db.student.updateOne({phone:{$exists:true}},{$rename:{"phone":"phoneno"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca43_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b23e5d7ef6a51cfd861e0'),
+    rollno: 1,
+    name: 'anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b25d7d7ef6a51cfd861e1'),
+    rollno: 2,
+    name: 'anju'
+  },
+  {
+    _id: ObjectId('681b2ad1d7ef6a51cfd861e2'),
+    rollno: 3,
+    name: 'ramshiya',
+    age: 33,
+    phoneno: [ '8789687', '8766688' ]
+  },
+  {
+    _id: ObjectId('681b2b5dd7ef6a51cfd861e3'),
+    rollno: 3,
+    name: 'ramshiya',
+    age: 33,
+    address: { city: 'malappuram', pincode: '680542' }
+  }
+]
+24mca43_db> 
+
+
